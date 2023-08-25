@@ -51,17 +51,8 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({navigation, route}) => {
     console.log('jshfksjkfsd', route);
     if (route && route.params && route.params.type) {
       setLocValue(route.params.text);
-      // setMarkerCoords({
-      //   latitude: route.params.type.lat,
-      //   longitude: route.params.type.lng,
-      // });
+
       reverseGeocodeCoordinates(route.params.type.lat, route.params.type.lng);
-      setCurrentRegion({
-        latitude: route.params.type.lat,
-        longitude: route.params.type.lng,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-      });
     } else {
       checkLocationPermission();
     }
@@ -196,10 +187,6 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({navigation, route}) => {
             style={{transform: [{rotate: '0deg'}]}}
           />
         </TouchableOpacity>
-
-
-      
-        
 
         <MapView
           style={styles.mapStyle}
