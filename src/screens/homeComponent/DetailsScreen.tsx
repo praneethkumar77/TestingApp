@@ -196,93 +196,11 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({navigation, route}) => {
             style={{transform: [{rotate: '0deg'}]}}
           />
         </TouchableOpacity>
-        {/* 
-        <GooglePlacesAutocomplete
-          placeholder="Search Location"
-          fetchDetails={true}
-          enablePoweredByContainer={false}
-          GooglePlacesDetailsQuery={{fields: 'geometry'}}
-          query={{
-            key: 'AIzaSyCsjTBny6NYkAB7Gb6v1WCajXjpyyikexU',
-            language: 'en',
-          }}
-          currentLocation={true}
-          // suppressDefaultStyles
-          currentLocationLabel="Current location"
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            console.log('searchdetails', details?.geometry.location, data);
-            reverseGeocodeCoordinates(
-              details?.geometry.location.lat,
-              details?.geometry.location.lng,
-            );
-          }}
-          renderRow={(item: any) => {
-            console.log('row item data', item);
-            return (
-              <View
-                style={{
-                  width: deviceWidth - 20,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginBottom: 5,
-                  zIndex: 99,
-                }}>
-                <MaterialIcon
-                  name="navigation-variant-outline"
-                  color={COLORS.GRAY.DEFAULT}
-                  size={18}
-                />
-                <Text style={{paddingLeft: 8}}>{item.description}</Text>
-              </View>
-            );
-          }}
-          textInputProps={{
-            InputComp: Input,
-            rightIcon: {
-              type: 'font-awesome',
-              name: 'search',
-              color: '#d5d5d5',
-              size: 20,
-            },
-            errorStyle: {color: 'red'},
-          }}
-          onFail={error => console.error('error', error)}
-          styles={{
-            textInputContainer: {
-              backgroundColor: 'white',
-              width: 320,
-              borderRadius: 5,
-              zIndex: 99,
-              position: 'absolute',
-              top: 10,
-              left: 10,
-              // height: 45,
-            },
-            textInput: {
-              color: '#5d5d5d',
-              fontSize: 16,
-              paddingLeft: 0,
-              width: 320,
-            },
-            // separator: {
-            //   display: 'none',
-            // },
-            predefinedPlacesDescription: {
-              color: '#1faadb',
-            },
-            container: {
-              // borderBottomColor: 'white',
-              zIndex: 9,
-              // flex: 1,
-              height: deviceHeight,
-            },
-            listView: {
-              zIndex: 9,
-              height: deviceHeight,
-            },
-          }}
-        /> */}
+
+
+      
+        
+
         <MapView
           style={styles.mapStyle}
           initialRegion={currentRegion}
