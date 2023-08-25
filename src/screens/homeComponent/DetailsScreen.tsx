@@ -51,10 +51,11 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({navigation, route}) => {
     console.log('jshfksjkfsd', route);
     if (route && route.params && route.params.type) {
       setLocValue(route.params.text);
-      setMarkerCoords({
-        latitude: route.params.type.lat,
-        longitude: route.params.type.lng,
-      });
+      // setMarkerCoords({
+      //   latitude: route.params.type.lat,
+      //   longitude: route.params.type.lng,
+      // });
+      reverseGeocodeCoordinates(route.params.type.lat, route.params.type.lng);
       setCurrentRegion({
         latitude: route.params.type.lat,
         longitude: route.params.type.lng,
@@ -65,6 +66,8 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({navigation, route}) => {
       checkLocationPermission();
     }
   }, [refresh, isFocussed]);
+
+  console.log('markercodrd', markerCoords);
 
   const checkLocationPermission = async () => {
     const permissionStatus = await check(
@@ -104,6 +107,12 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({navigation, route}) => {
       setMarkerCoords({
         latitude: response.results[0].geometry.location.lat,
         longitude: response.results[0].geometry.location.lng,
+      });
+      setCurrentRegion({
+        latitude: latitude,
+        longitude: longitude,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
       });
       console.log('Address:', response);
       const pincode = extractPincodeFromAddress(address);
@@ -194,7 +203,7 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({navigation, route}) => {
           enablePoweredByContainer={false}
           GooglePlacesDetailsQuery={{fields: 'geometry'}}
           query={{
-            key: '--Type Your Api Key Here--',
+            key: 'AIzaSyCsjTBny6NYkAB7Gb6v1WCajXjpyyikexU',
             language: 'en',
           }}
           currentLocation={true}

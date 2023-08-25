@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Input from 'react-native-elements';
@@ -8,22 +8,34 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ParamListBase} from '@react-navigation/native';
 import COLORS from '../../utils/Colors';
 import {deviceWidth} from '../../utils/Util';
+import Geolocation from '@react-native-community/geolocation';
 
 interface SearchScreenProps {
   navigation: NativeStackNavigationProp<ParamListBase>;
 }
 
 const GooglePlacesInput: React.FC<SearchScreenProps> = ({navigation}) => {
-  const homePlace = {
-    description: 'Current Location',
-    geometry: {location: {lat: 48.8152937, lng: 2.4597668}},
-  };
-  const workPlace = {
-    description: 'Work',
-    geometry: {location: {lat: 48.8496818, lng: 2.2940881}},
+  const [currentLoc, setCurrentLocation] = useState<any>({});
+  const yourLocation = {
+    description: 'Your Location',
+    geometry: {location: currentLoc},
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log('kckewcwee', position);
+        setCurrentLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      error => {
+        console.log('error in getcurrentlocation', error);
+      },
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    );
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -33,10 +45,10 @@ const GooglePlacesInput: React.FC<SearchScreenProps> = ({navigation}) => {
         enablePoweredByContainer={false}
         GooglePlacesDetailsQuery={{fields: 'geometry'}}
         query={{
-          key: '--Type Your Api Key Here--',
+          key: 'AIzaSyCsjTBny6NYkAB7Gb6v1WCajXjpyyikexU',
           language: 'en',
         }}
-        predefinedPlaces={[homePlace]}
+        predefinedPlaces={[yourLocation]}
         currentLocation={true}
         currentLocationLabel="Current location"
         onPress={(data, details = null) => {
@@ -51,9 +63,19 @@ const GooglePlacesInput: React.FC<SearchScreenProps> = ({navigation}) => {
         renderLeftButton={() => (
           <MaterialIcon
             name="chevron-left"
-            size={24}
-            color={'#c5c5c5'}
+            size={28}
+            color={'#333'}
             onPress={() => navigation.goBack()}
+            style={{
+              backgroundColor: COLORS.BaseBgColor,
+              verticalAlign: 'middle',
+              alignItems: 'center',
+              padding: 5,
+              height: 48,
+              borderTopLeftRadius: 5,
+              borderBottomLeftRadius: 5,
+              marginLeft: 1,
+            }}
           />
         )}
         renderRightButton={() => (
@@ -70,13 +92,10 @@ const GooglePlacesInput: React.FC<SearchScreenProps> = ({navigation}) => {
           return (
             <View
               style={{
-                // borderBottomWidth: 0.5,
-                // borderBottomColor: COLORS.GRAY.LIGHT,
                 width: deviceWidth - 20,
                 flexDirection: 'row',
                 alignItems: 'center',
                 marginBottom: 5,
-                // paddingVertical: 1,
               }}>
               <MaterialIcon
                 name="navigation-variant-outline"
@@ -107,7 +126,7 @@ const GooglePlacesInput: React.FC<SearchScreenProps> = ({navigation}) => {
         styles={{
           textInputContainer: {
             backgroundColor: 'white',
-            marginTop: 10,
+            marginVertical: 10,
             justifyContent: 'center',
             alignItems: 'center',
             borderWidth: 0.5,

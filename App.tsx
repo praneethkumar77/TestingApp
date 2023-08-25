@@ -7,7 +7,7 @@ import Navigation from './src/navigation';
 import Geolocation from '@react-native-community/geolocation';
 
 // Geolocation.setRNConfiguration(config);
-Geocoder.init('--Type Your Api Key Here--', {language: 'en'});
+Geocoder.init('AIzaSyCsjTBny6NYkAB7Gb6v1WCajXjpyyikexU', {language: 'en'});
 // navigator.geolocation = require('@react-native-community/geolocation');
 // navigator.geolocation = require('react-native-geolocation-service');
 
